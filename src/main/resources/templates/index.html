@@ -1,17 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>WAYMAN — Home</title>
+    <title>WAYMAN – Home</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #050608;
+            color: #eee;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* Анимация заголовка */
+        h1 {
+            font-size: 48px;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            animation: title-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes title-glow {
+            0% {
+                text-shadow: 0 0 4px #1e90ff;
+                color: #f5f5f5;
+            }
+            100% {
+                text-shadow: 0 0 18px #00d4ff;
+                color: #ffffff;
+            }
+        }
+
+        /* Плавное появление подзаголовка */
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fade-in 1.2s ease-out forwards;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Кнопка-ссылка */
+        .btn-main {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 999px;
+            border: 1px solid #00d4ff;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: background-color 0.25s ease,
+                        color 0.25s ease,
+                        transform 0.15s ease,
+                        box-shadow 0.25s ease;
+            animation: button-pulse 2.2s ease-in-out infinite;
+        }
+
+        @keyframes button-pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
+            100% { box-shadow: 0 0 0 14px rgba(0, 212, 255, 0); }
+        }
+
+        .btn-main:hover {
+            background-color: #00d4ff;
+            color: #050608;
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+        }
+
+        .btn-main:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+        }
+    </style>
 </head>
-<body style="background:#111; color:#eee; font-family:Arial,sans-serif; padding:40px;">
-<h1>WAYMAN SUPER SITE </h1>
-<p>Сайт работает на Spring Boot 🚀</p>
+<body>
+<div class="container">
+    <h1>WAYMAN SITE</h1>
 
-<p>
-    <a href="/contacts" style="color:#4FC3F7;">Контакты</a>
-    <a href="/about" style="color:#4FC3F7;">О проекте</a>
-</p>
+    <p class="subtitle">
+        Сайт работает на Spring Boot 🚀<br>
+        Деплой идёт напрямую на сервер wayman.me
+    </p>
 
+    <a href="/about" class="btn-main">О проекте</a>
+</div>
 </body>
 </html>
