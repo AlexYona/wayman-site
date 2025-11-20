@@ -1,0 +1,45 @@
+name: WAYMAN Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build with Maven
+        run: mvn -B clean package
+
+      - name: Copy jar to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_NAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: "target/wayman-site-1.0-SNAPSHOT.jar"
+          target: "/opt/wayman-site"
+          overwrite: true
+
+      - name: Restart service
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_NAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          script: |
+            sudo systemctl restart wayman-site
+            sudo systemctl status wayman-site --no-pager -l
+            
