@@ -42,4 +42,3 @@ jobs:
           script: |
             sudo systemctl restart wayman-site
             sudo systemctl status wayman-site --no-pager -l
-            
